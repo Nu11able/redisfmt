@@ -432,8 +432,8 @@ public:
     */
     template <typename ...Field>
     tl::expected<std::vector<std::string>, int> HMGET(std::string_view key, Field... field) {
-        constexpr size_t arg_count = sizeof...(args);
-        static_assert(sizeof...(field) > 0, "invalid number of arguement");
+        constexpr size_t arg_count = sizeof...(field);
+        static_assert(arg_count > 0, "invalid number of arguement");
         static std::string cmd = GetCmd("HMGET", arg_count + 1);
         return ExcuteCommand<std::vector<std::string>>(cmd, std::string(key), fmt::format("{}", field)...);
     }
